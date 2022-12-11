@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('form_aspirasis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', '20')->required();
+            $table->text('permasalahan',)->required();
             $table->text('penyebab')->required();
             $table->text('lokasi')->required();
             $table->text('usulan')->required();
-            $table->text('keterangan')->required();
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

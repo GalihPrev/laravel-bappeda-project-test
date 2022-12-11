@@ -50,10 +50,12 @@
         <img src="{{asset ('build/assets/img/unnamed.jpg') }} " class="rounded-circle" width="100" height="100">
         <div class="row">
           <div class="col">
-            <h4 class="d-none d-md-block ps-3">Fulan</h4>
+
+            <h4 class="d-none d-md-block ps-3"> {{ Auth::user()->username }} </h4>
+
           </div>
           <div class="col">
-            <span class="d-none d-md-block ps-3">Lowokwaru</span>
+            <span class="d-none d-md-block ps-3">{{ Auth::user()->kelurahan->name }}</span>
           </div>
         </div>
       </a><!-- End Image Profile Nav -->
@@ -61,14 +63,14 @@
       <br>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard-m.html">
+        <a class="nav-link collapsed" href="{{URL::to('masyarakat/dashboard-mb')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="riwayat-m.html">
+        <a class="nav-link collapsed" href="{{URL::to('masyarakat/riwayat-m')}}">
           <i class="bi bi-clock-history"></i>
           <span>Riwayat</span>
         </a>
@@ -84,7 +86,7 @@
       <li id="footer">
         <div class="container">
           <div class="copyright">
-            <a class="nav-link collapsed" href="login.html">
+            <a class="nav-link collapsed" href="/logout">
               <i class="bi bi-box-arrow-in-left"></i>
               <span>Logout</span>
             </a>
@@ -168,8 +170,8 @@
                 <div class="row mb-3">
                   <!--  <label for="inputText" class="col-sm-2 col-form-label"></label> -->
                   <div class="col-sm-12">
-                    <textarea class="form-control" style="height: 50px" placeholder="Permasalahan"
-                      name="nama"></textarea>
+                    <textarea class="form-control" style="height: 50px" placeholder="permasalahan"
+                      name="permasalahan"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -204,19 +206,20 @@
                 <div class="row mb-3">
                   <div class="col-sm-12 ">
                     @foreach ($user as $data)
-                    <input type="hidden" name="users_id" id="users" value=" {{ $data -> id }}" readonly>
+                    <input type="hidden" name="users_id" id="users" placeholder="{{ $data -> username }}"
+                      value=" {{ $data -> id }}" readonly>
                     @endforeach
                   </div>
                 </div>
 
 
-                {{-- Hidden id kelurahan --}}
+                {{-- add data keluarhan --}}
                 <div class="row mb-3">
                   <div class="col-sm-12 ">
-                    @foreach ($user as $data)
+                    @foreach ($kelurahan as $data)
 
                     <input type="hidden" name="kelurahan_id" id="kelurahans" placeholder="{{ $data -> name }}"
-                      value=" {{ $data -> id  }}" readonly>
+                      value=" {{ $data -> id }}" readonly>
                     @endforeach
                   </div>
                 </div>

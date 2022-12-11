@@ -1,9 +1,10 @@
 <?php
 
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\UserController;
 
@@ -26,11 +27,23 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index']);
 
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authLogin']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
 // route prefix masyarakat
 Route::prefix('/masyarakat')->group(function () {
     // Route::get('/dashboard-mb', [UserController::class, 'index']);
-    Route::get('/riwayat-m', [UserController::class, 'show']);
-    Route::get('/dashboard-mb', [UserController::class, 'create']);
-    Route::post('/riwayat-m', [UserController::class, 'store']);
+    Route::get('/riwayat-m', [UserController::class, 'show'])->middleware('auth');
+    Route::get('/dashboard-mb', [UserController::class, 'create'])->middleware('auth');
+    Route::post('/riwayat-m', [UserController::class, 'store'])->middleware('auth');
+});
 
+// Route Prefix Kelurahan 
+Route::prefix('/kelurahan')->group(function () {
+    // Route::get('/dashboard-k', [KelurahanController::class, 'show']);
+    Route::get('/riwayat-k', [KelurahanController::class, 'show']);
+    Route::get('/dashboard-k', [KelurahanController::class, 'create']);
+    // Route::post('/riwayat-k', [UserController::class, 'store']);
 });

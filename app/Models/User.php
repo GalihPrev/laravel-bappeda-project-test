@@ -18,7 +18,7 @@ class User extends Authenticatable
     }
     public function kelurahan()
     {
-        return $this->belongsTo(kelurahan::class, 'kelurahan');
+        return $this->belongsTo(kelurahan::class, 'kelurahan_id','id');
     }
 
     /**
@@ -27,9 +27,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'role_id',
+        'kelurahan_id',
     ];
 
     /**

@@ -10,7 +10,7 @@ class formAspirasi extends Model
     use HasFactory;
     protected $fillable = [
 
-        'nama',
+        'permasalahan',
         'penyebab',
         'lokasi',
         'usulan',

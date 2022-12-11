@@ -8,6 +8,7 @@ use App\Models\kelurahan;
 use App\Models\role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -30,10 +31,11 @@ class UserController extends Controller
     public function create()
     {
 
-        $user = User::select('id', 'name')->get();
+        $user = User::select('id', 'username')->get();
         $kelurahan = kelurahan::select('id', 'name')->get();
-        return view('masyarakat.dashboard-mb', ['user' => $user, 'role' => $kelurahan]);
-        //  create form aspirasis
+
+        return view('masyarakat.dashboard-mb', ['user' => $user, 'kelurahan' => $kelurahan]);
+    
     }
 
     /**
@@ -49,45 +51,32 @@ class UserController extends Controller
     }
 
 
+
     public function show(Request $request)
     {
 
         //get data form table aspirasi
-        $formAspirasi = formAspirasi::paginate(5);
+        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->paginate(5);
+        $user = User::select('id', 'username')->get();
+        $kelurahan = kelurahan::select('id', 'name')->get();
         // dd($formAspirasi);
-        return view('masyarakat.riwayat-m', ['formAspirasi' => $formAspirasi]);
+        return view('masyarakat.riwayat-m', ['formAspirasi' => $formAspirasi, 'user' => $user, 'kelurahan' => $kelurahan]);
         // dd('test');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
         //
