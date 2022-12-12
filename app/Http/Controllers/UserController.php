@@ -9,6 +9,7 @@ use App\Models\role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Termwind\Components\Dd;
 
 class UserController extends Controller
 {
@@ -35,7 +36,6 @@ class UserController extends Controller
         $kelurahan = kelurahan::select('id', 'name')->get();
 
         return view('masyarakat.dashboard-mb', ['user' => $user, 'kelurahan' => $kelurahan]);
-    
     }
 
     /**
@@ -54,9 +54,17 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
+        $search = $request->search; 
+      
+        // how to set to preliminary data if we refresh the page after search
+       if($search == null){
+           $search = '';
+         }
+         
+        
 
         //get data form table aspirasi
-        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->paginate(5);
+        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->where('permasalahan', 'like', "%" . $search . "%")->paginate(5);
         $user = User::select('id', 'username')->get();
         $kelurahan = kelurahan::select('id', 'name')->get();
         // dd($formAspirasi);
@@ -64,19 +72,19 @@ class UserController extends Controller
         // dd('test');
     }
 
- 
+
     public function edit($id)
     {
         //
     }
 
-    
+
     public function update(Request $request, $id)
     {
         //
     }
 
- 
+
     public function destroy($id)
     {
         //

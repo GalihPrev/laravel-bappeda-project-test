@@ -21,7 +21,7 @@ class KelurahanController extends Controller
     public function create()
     {
 
-        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->paginate(5);
+        $formAspirasi = formAspirasi::where('kelurahan_id', Auth::user()->kelurahan->id)->paginate(5);
         $user = User::select('id', 'username')->get();
         $kelurahan = kelurahan::select('id', 'name')->get();
         // dd($formAspirasi);
@@ -56,5 +56,10 @@ class KelurahanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function profile()
+    {
+        return view('profile');
     }
 }

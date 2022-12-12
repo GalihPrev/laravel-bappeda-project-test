@@ -31,7 +31,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
-            return redirect()->intended('masyarakat/dashboard-mb');
+            if (Auth::user()->role_id == 1) {
+                return redirect()->intended('masyarakat/dashboard-mb');
+            } else if (Auth::user()->role_id == 3) {
+                return redirect()->intended('kelurahan/dashboard-k');
+                // } else if (Auth::user()->role_id == 2) {
+                //     return redirect()->intended('bappeda/dashboard-b');
+            }
         }
 
         return back()->with('loginError', 'Login gagal! username atau password salah.');
