@@ -13,4 +13,8 @@ class opd extends Model
     {
         return $this->hasMany(formAspirasi::class, 'opd_id', 'id');
     }
+    public function dataKategori()
+    {
+        return $this->hasMany(dataKategori::class, 'ops_id', 'id');
+    }
 }

@@ -6,7 +6,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <a class="nav-profile d-flex align-items-center pe-0" href="#">
+        <a class="nav-profile d-flex align-items-center pe-0" href="{{URL::to('masyarakat/riwayat-m')}}">
             <img src="{{asset ('build/assets/img/unnamed.jpg') }}" alt="Profile" class="rounded-circle" width="100"
                 height="100">
             <div class="row">
@@ -31,14 +31,14 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="riwayat-m.html">
+            <a class="nav-link collapsed" href="{{URL::to('masyarakat/riwayat-m')}}">
                 <i class="bi bi-clock-history"></i>
                 <span>Riwayat</span>
             </a>
         </li><!-- End Riwayat Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="profile.html">
+            <a class="nav-link collapsed" href={{URL::to('/profile')}}>
                 <i class="bi bi-person"></i>
                 <span>Akun</span>
             </a>
@@ -100,7 +100,7 @@
         </li><!-- End Riwayat Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{URL::to('kelurahan/profile')}}">
+            <a class="nav-link collapsed" href="{{URL::to('/profile')}}">
                 <i class="bi bi-person"></i>
                 <span>Akun</span>
             </a>

@@ -32,11 +32,11 @@ class AuthController extends Controller
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
             if (Auth::user()->role_id == 1) {
-                return redirect()->intended('masyarakat/dashboard-mb');
+                return redirect()->intended('masyarakat/dashboard-mb')->with('success', 'Login Berhasil');
+            } else if (Auth::user()->role_id == 2) {
+                return redirect()->intended('bappeda/dashboard-b')->with('success', 'Login Berhasil');
             } else if (Auth::user()->role_id == 3) {
-                return redirect()->intended('kelurahan/dashboard-k');
-                // } else if (Auth::user()->role_id == 2) {
-                //     return redirect()->intended('bappeda/dashboard-b');
+                return redirect()->intended('kelurahan/dashboard-k')->with('success', 'Login Berhasil');
             }
         }
 

@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MasyarakatController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'profile'])->middleware('auth');
 
 
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
@@ -45,9 +47,9 @@ Route::prefix('/kelurahan')->group(function () {
     // Route::get('/dashboard-k', [KelurahanController::class, 'show']);
     Route::get('/riwayat-k', [KelurahanController::class, 'show'])->middleware('auth');
     Route::get('/dashboard-k', [KelurahanController::class, 'create'])->middleware('auth');
-    Route::get('/profile', [KelurahanController::class, 'profile'])->middleware('auth');
+    Route::post('/riwayat-k', [KelurahanController::class, 'store'])->middleware('auth');   
+
     // Route::post('/riwayat-k', [UserController::class, 'store']);
     // Route to export excel
     Route::get('/export-excel', [KelurahanController::class, 'exportExcel'])->name('export.excel');
-    
 });

@@ -43,7 +43,7 @@
 
 <body>
 
-  @include('layouts.sidebar')
+    @include('layouts.sidebar')
 
     <main id="main" class="main">
 
@@ -59,6 +59,7 @@
         <section class="section">
             <div class="col-lg-16">
                 @yield('content')
+                @include('sweetalert::alert')
             </div>
         </section>
 

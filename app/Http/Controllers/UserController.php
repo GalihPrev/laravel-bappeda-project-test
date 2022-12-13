@@ -47,21 +47,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $formAspirasi = formAspirasi::create($request->all());
-        return redirect('/masyarakat/riwayat-m');
+        // validation data if create data succes alert success 
+        if ($formAspirasi) {
+            return redirect('/masyarakat/riwayat-m')->with('success', 'Data Berhasil Ditambahkan');
+        } else {
+            return redirect('/masyarakat/riwayat-m')->with('error', 'Data Gagal Ditambahkan');
+        }
     }
 
 
 
     public function show(Request $request)
     {
-        $search = $request->search; 
-      
-        // how to set to preliminary data if we refresh the page after search
-       if($search == null){
-           $search = '';
-         }
-         
-        
+        $search = $request->search;
+        if ($search == null) {
+            redirect('/masyarakat/riwayat-m');
+        }
 
         //get data form table aspirasi
         $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->where('permasalahan', 'like', "%" . $search . "%")->paginate(5);

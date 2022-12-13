@@ -37,4 +37,8 @@ class formAspirasi extends Model
     {
         return $this->hasMany(User::class, 'user_id', 'id');
     }
+    public function dataKategori()
+    {
+        return $this->hasMany(dataKategori::class, 'aspirasi_id', 'id');
+    }
 }

@@ -29,7 +29,8 @@
                         <div class="row mb-3">
                             <label for="nama" class="col-md-4 col-lg-3 col-form-label">Nama</label>
                             <div class="col-md-8 col-lg-9">
-                                <input name="nama" type="text" class="form-control" id="nama" value="{{ Auth::user()->kelurahan->name }}">
+                                <input name="nama" type="text" class="form-control" id="nama"
+                                    value="{{ Auth::user()->kelurahan->name }}" readonly>
                             </div>
                         </div>
 
@@ -37,7 +38,7 @@
                             <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                             <div class="col-md-8 col-lg-9">
                                 <input name="username" type="text" class="form-control" id="username"
-                                    value="{{ Auth::user()->username }}">
+                                    value="{{ Auth::user()->username }}" readonly>
                             </div>
                         </div>
 
@@ -47,7 +48,8 @@
                             <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
                                 Password</label>
                             <div class="col-md-8 col-lg-9">
-                                <input name="password" type="password" class="form-control" id="currentPassword">
+                                <input name="password" type="password" class="form-control" id="currentPassword"
+                                    value="">
                             </div>
                         </div>
 
