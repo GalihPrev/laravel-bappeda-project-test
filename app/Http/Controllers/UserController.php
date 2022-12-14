@@ -65,7 +65,7 @@ class UserController extends Controller
         }
 
         //get data form table aspirasi
-        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->where('permasalahan', 'like', "%" . $search . "%")->paginate(5);
+        $formAspirasi = formAspirasi::where('users_id', Auth::user()->id)->where('permasalahan', 'like', "%" . $search . "%")->paginate(10);
         $user = User::select('id', 'username')->get();
         $kelurahan = kelurahan::select('id', 'name')->get();
         // dd($formAspirasi);

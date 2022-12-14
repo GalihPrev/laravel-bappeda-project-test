@@ -34,19 +34,22 @@ class KelurahanController extends Controller
 
     public function store(Request $request)
     {
-
-        $dataKategorie = dataKategorie::create($request)->all();
-        return redirect('/kelurahan/riwayat-k')->with('success', 'Data Berhasil Divalidasi');
+        $dataKategorie = dataKategorie::create($request->all());
+        // validation data if create data succes alert success 
+        if ($dataKategorie) {
+            return redirect('/kelurahan/riwayat-k')->with('success', 'Data Berhasil Disubmit');
+        } else {
+            return redirect('/kelurahan/riwayat-k')->with('error', 'Data Gagal Disubmit');
+        }
     }
 
     public function show(Request $request)
     {
+        dd($request->all());
 
-        $formAspirasi = formAspirasi::where('kelurahan_id', Auth::user()->kelurahan->id)->get();
-        $user = User::select('id', 'username')->get();
-        $kelurahan = kelurahan::select('id', 'name')->get();
-        // dd($formAspirasi);
-        return view('kelurahan/riwayat-k', ['formAspirasi' => $formAspirasi, 'user' => $user, 'kelurahan' => $kelurahan]);
+        $dataKategorie = dataKategorie::where('aspirasi_id', Auth::user()->aspirasi->id)->get();
+
+        return view('kelurahan/riwayat-k', ['dataKategorie' => $dataKategorie]);
     }
 
 
@@ -61,10 +64,14 @@ class KelurahanController extends Controller
         //
     }
 
-
     public function destroy($id)
     {
-        //
+        // dd($id);
+        // dd($id);
+        $formAspirasi = formAspirasi::findOrFail($id);
+        $formAspirasi->delete();
+        // dd("testis");
+        return redirect('/kelurahan/dashboard-k')->with('success', 'Data Berhasil Dihapus');
     }
 
 

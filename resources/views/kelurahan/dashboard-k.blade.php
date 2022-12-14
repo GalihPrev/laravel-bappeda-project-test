@@ -25,60 +25,75 @@
         </div><!-- End Form Bar -->
 
         <br>
-        <form action="riwayat-k" method="POST">
-            @csrf
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Permasalahan</th>
-                        <th scope="col">Penyebab</th>
-                        <th scope="col">Lokasi</th>
-                        <th scope="col">Usulan</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Verifikasi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($formAspirasi as $data)
-                    {{-- {{ $data -> id }} --}}
 
-                    <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $data -> permasalahan }}</td>
-                        <td>{{ $data -> penyebab }}</td>
-                        <td>{{ $data -> lokasi }}</td>
-                        <td>{{ $data -> usulan }}</td>
-                        <td>{{ $data -> keterangan }}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Permasalahan</th>
+                    <th scope="col">Penyebab</th>
+                    <th scope="col">Lokasi</th>
+                    <th scope="col">Usulan</th>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
 
-                        <td>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                $no = 1;
 
-            </table><!-- End Table -->
+                @endphp
+                @foreach ($formAspirasi as $data)
+                {{-- {{ $data -> id }} --}}
+
+                <tr>
+                    <th scope="row">{{$no++ }}</th>
+                    <td>{{ $data -> permasalahan }}</td>
+                    <td>{{ $data -> penyebab }}</td>
+                    <td>{{ $data -> lokasi }}</td>
+                    <td>{{ $data -> usulan }}</td>
+                    <td>{{ $data -> keterangan }}</td>
+                    <td>
+                        <form action="{{ route('delete.data', $data->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm"
+                                title='Delete'>Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table><!-- End Table -->
 
 
-            <div class="dataTable-bottom">
 
-                <div class="col-md-3">
-                    <div class="row justify-content-end">
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#print">Print</button>
-                        </div>
-                        <div class="col-md-4">
+        <div class="dataTable-bottom">
+
+            <div class="col-md-3">
+                <div class="row justify-content-end">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#print">Print</button>
+                    </div>
+                    <div class="col-md-4">
+                        {{-- <form action="{{ route('submit.data', $data->id) }}" method="GET">
+                            @csrf
+                            @method('GET')
                             <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        </form> --}}
+                        <a href="{{ route('submit.data', $data->id) }}">
+                            <button type="button" class="btn btn-primary">Submit</button>
+                        </a>
                     </div>
                 </div>
+            </div>
 
-            </div><br>
-        </form>
+        </div><br>
+
         <!-- End Table Bottom -->
         <div>
             {{ $formAspirasi-> withQueryString()->links() }}
