@@ -55,13 +55,18 @@
                     <td>{{ $data -> usulan }}</td>
                     <td>{{ $data -> keterangan }}</td>
                     <td>
-                        <form action="{{ route('delete.data', $data->id) }}" method="POST">
+                        {{-- <form action="{{ route('delete.data', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm"
                                 title='Delete'>Delete</button>
-                        </form>
+                        </form> --}}
+
+                        <a href="{{ route('submit.data', $data->id) }}" class="btn btn-xs btn-primary btn-flat"
+                            title='Edit'>submit</a>
+
                     </td>
+
 
                 </tr>
                 @endforeach
@@ -73,24 +78,14 @@
 
         <div class="dataTable-bottom">
 
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <div class="row justify-content-end">
                     <div class="col-md-3">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#print">Print</button>
                     </div>
-                    <div class="col-md-4">
-                        {{-- <form action="{{ route('submit.data', $data->id) }}" method="GET">
-                            @csrf
-                            @method('GET')
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form> --}}
-                        <a href="{{ route('submit.data', $data->id) }}">
-                            <button type="button" class="btn btn-primary">Submit</button>
-                        </a>
-                    </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div><br>
 
@@ -101,7 +96,7 @@
 
 
 
-        <div class="modal fade" id="print" role="dialog" arialabelledby="ModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="print" role="dialog" arialabelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -143,7 +138,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                         {{-- print according to the page --}}
-                        <a href="{{ route('export.excel') }}">
+                        {{-- <a href="{{ route('export.excel') }}">
                             <button type="button" class="btn btn-primary">Export</button>
                         </a>
 
@@ -151,8 +146,9 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
+            </div> --}}
+            {{--
+        </div> - --}}
         <!-- pop up end -->
     </div>
 </div>

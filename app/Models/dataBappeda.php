@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class formAspirasi extends Model
+class dataBappeda extends Model
 {
     use HasFactory;
+
     protected $fillable = [
 
         'permasalahan',
@@ -17,6 +18,7 @@ class formAspirasi extends Model
         'keterangan',
         'users_id',
         'kelurahan_id',
+        'form_aspirasi_id',
         'created_at',
         'updated_at',
     ];
@@ -42,8 +44,8 @@ class formAspirasi extends Model
         return $this->hasMany(dataKategori::class, 'aspirasi_id', 'id');
     }
 
-    public function data_bappeda()
+    public function formAspirasi()
     {
-        return $this->hasMany(data_bappeda::class, 'form_aspirasi_id', 'id');
+        return $this->hasMany(dataAspirasi::class, 'form_aspirasi_id', 'id');
     }
 }

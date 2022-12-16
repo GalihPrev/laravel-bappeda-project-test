@@ -2,6 +2,8 @@
 
 
 @section('content')
+
+{{-- {{ dd($dataBappeda); }} --}}
 <div class="card">
     <div class="card-body">
         <div class="row justify-content-end">
@@ -28,70 +30,111 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Tanggal</th>
-                    <th scope="col">Waktu</th>
+                    <th scope="col">Permasalahan</th>
+                    <th scope="col">Penyebab</th>
+                    <th scope="col">Lokasi</th>
+                    <th scope="col">Usulan</th>
                     <th scope="col">Keterangan</th>
-
+                    {{-- <th scope="col">Action</th> --}}
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Bratas</td>
-                    <td>12-12-2001</td>
-                    <td>07.30</td>
-                    <td>rusak</td>
+                @php
 
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Bratas</td>
-                    <td>12-12-2001</td>
-                    <td>07.30</td>
-                    <td>rusak</td>
+                $no = 1;
 
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Bratas</td>
-                    <td>12-12-2001</td>
-                    <td>07.30</td>
-                    <td>rusak</td>
+                @endphp
+                @foreach ($dataBappeda as $data)
+                {{ $data }}
 
+                <tr>
+                    <th scope="row">{{$no++ }}</th>
+                    <td>{{ $data -> permasalahan }}</td>
+                    <td>{{ $data -> penyebab }}</td>
+                    <td>{{ $data -> lokasi }}</td>
+                    <td>{{ $data -> usulan }}</td>
+                    <td>{{ $data -> keterangan }}</td>
                 </tr>
+                @endforeach
             </tbody>
-        </table>
+
+        </table><!-- End Table -->
+
+
 
         <div class="dataTable-bottom">
-            <div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
-            <nav class="dataTable-pagination">
-                <ul class="dataTable-pagination-list"></ul>
-            </nav>
-        </div>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            <div class="col-md-3">
+                <div class="row justify-content-end">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#print">Print</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><br>
+
+        <!-- End Table Bottom -->
+        {{-- <div>
+            {{ $dataKategorie-> withQueryString()->links() }}
+        </div> --}}
+        <div class="modal fade" id="print" role="dialog" arialabelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Preview Dokumen </h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Permasalahan</th>
+                                    <th scope="col">Penyebab</th>
+                                    <th scope="col">Lokasi</th>
+                                    <th scope="col">Usulan</th>
+                                    <th scope="col">Keterangan</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dataBappeda as $data)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $data -> permasalahan }}</td>
+                                    <td>{{ $data -> penyebab }}</td>
+                                    <td>{{ $data -> lokasi }}</td>
+                                    <td>{{ $data -> usulan }}</td>
+                                    <td>{{ $data -> keterangan }}
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table><!-- End Table -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        {{-- print according to the page --}}
+                        <a href="{{ route('export.excel') }}">
+                            <button type="button" class="btn btn-primary">Export</button>
+                        </a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
 </section>
 
 </main><!-- End #main -->
-
 @endsection

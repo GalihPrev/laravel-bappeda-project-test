@@ -20,4 +20,9 @@ class kelurahan extends Model
         return $this->hasMany(User::class, 'kelurahan_id', 'id');
        
     }
+    public function data_bappeda()
+    {
+        return $this->hasMany(data_bappeda::class, 'kelurahan_id', 'id');
+}
+
 }

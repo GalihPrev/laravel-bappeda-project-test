@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\BappedaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MasyarakatController;
@@ -36,20 +38,27 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 // route prefix masyarakat
 Route::prefix('/masyarakat')->group(function () {
-    // Route::get('/dashboard-mb', [UserController::class, 'index']);
+
     Route::get('/riwayat-m', [UserController::class, 'show'])->middleware('auth');
     Route::get('/dashboard-mb', [UserController::class, 'create'])->middleware('auth');
     Route::post('/riwayat-m', [UserController::class, 'store'])->middleware('auth');
+    Route::get('/riwayat-m/{id}', [UserController::class, 'edit'])->middleware('auth')->name('edit.data');
+    Route::put('/riwayat-m/{id}', [UserController::class, 'update'])->middleware('auth')->name('update.data');
 });
 
 // Route Prefix Kelurahan 
 Route::prefix('/kelurahan')->group(function () {
-    Route::get('/dashboard-k', [KelurahanController::class, 'create'])->middleware('auth')->name('submitw.data');
-    Route::post('/riwayat-k', [KelurahanController::class, 'store'])->middleware('auth');
-    Route::delete('/dashboard-k/{id}', [KelurahanController::class, 'destroy'])->middleware('auth')->name('delete.data');
+
+    Route::get('/dashboard-k', [KelurahanController::class, 'index'])->middleware('auth')->name('kelurahan.dashboard');
+    Route::post('/riwayat-k', [KelurahanController::class, 'store'])->middleware('auth')->name('kirim.data');
     Route::get('/riwayat-k', [KelurahanController::class, 'show'])->middleware('auth');
+    Route::get('/dashboard-k/{id}', [KelurahanController::class, 'create'])->middleware('auth')->name('submit.data');
+    Route::delete('/dashboard-k/{id}', [KelurahanController::class, 'destroy'])->middleware('auth')->name('delete.data');
     Route::get('/export-excel', [KelurahanController::class, 'exportExcel'])->name('export.excel');
 });
 
 Route::prefix('/bappeda')->group(function () {
+
+    Route::get('/dashboard-b', [BappedaController::class, 'index'])->middleware('auth');
+    Route::get('/table-bkat', [BappedaController::class, 'show'])->middleware('auth');
 });

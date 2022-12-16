@@ -13,22 +13,14 @@ use Termwind\Components\Dd;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
 
         // 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
 
@@ -38,12 +30,7 @@ class UserController extends Controller
         return view('masyarakat.dashboard-mb', ['user' => $user, 'kelurahan' => $kelurahan]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $formAspirasi = formAspirasi::create($request->all());
@@ -74,15 +61,24 @@ class UserController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $formAspirasi = formAspirasi::find($id);
+        $user = User::select('id', 'username')->get();
+        $kelurahan = kelurahan::select('id', 'name')->get();
+        return view('masyarakat.edit_data', ['formAspirasi' => $formAspirasi, 'user' => $user, 'kelurahan' => $kelurahan]);
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $formAspirasi = formAspirasi::find($id);
+        $formAspirasi->update($request->all());
+        if ($formAspirasi) {
+            return redirect('/masyarakat/riwayat-m')->with('success', 'Data Berhasil Diubah');
+        } else {
+            return redirect('/masyarakat/riwayat-m')->with('error', 'Data Gagal Diubah');
+        }
     }
 
 

@@ -20,6 +20,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(kelurahan::class, 'kelurahan_id','id');
     }
+    public function data_bappeda()
+    {
+        return $this->belongsTo(data_bappeda::class, 'user_id', 'id');
+    }
 
     /**
      * The attributes that are mass assignable.

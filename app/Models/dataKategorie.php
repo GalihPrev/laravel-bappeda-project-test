@@ -25,4 +25,8 @@ class dataKategorie extends Model
     {
         return $this->belongsTo(opsi::class, 'ops_id', 'id');
     }
+    public function data_bappeda()
+    {
+        return $this->hasMany(data_bappeda::class, 'data_bappeda_id', 'id');
+    }
 }

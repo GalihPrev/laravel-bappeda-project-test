@@ -62,32 +62,27 @@
       <!-- pop up end -->
 
       <div class="row mb-3">
-        <!--  <label for="inputText" class="col-sm-2 col-form-label"></label> -->
         <div class="col-sm-12">
           <textarea class="form-control" style="height: 50px" placeholder="permasalahan" name="permasalahan"></textarea>
         </div>
       </div>
       <div class="row mb-3">
-        <!-- <label for="inputEmail" class="col-sm-2 col-form-label">Email</label> -->
         <div class="col-sm-12">
           <textarea class="form-control" style="height: 75px" placeholder="Penyebab" name="penyebab"></textarea>
         </div>
       </div>
       <div class="row mb-3">
-        <!--  <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> -->
         <div class="col-sm-12">
           <textarea class="form-control" style="height: 50px" placeholder="Lokasi" name="lokasi"></textarea>
         </div>
       </div>
       <div class="row mb-3">
-        <!-- <label for="inputNumber" class="col-sm-2 col-form-label">Number</label> -->
         <div class="col-sm-12">
           <textarea class="form-control" style="height: 50px" placeholder="Usulan" name="usulan"></textarea>
         </div>
       </div>
 
       <div class="row mb-3">
-        <!-- <label for="inputPassword" class="col-sm-2 col-form-label">Textarea</label> -->
         <div class="col-sm-12">
           <textarea class="form-control" style="height: 100px" placeholder="Keterangan" name="keterangan"></textarea>
         </div>
@@ -97,7 +92,7 @@
       <div class="row mb-3">
         <div class="col-sm-12 ">
           @foreach ($user as $data)
-          <input type="hidden" name="users_id" id="users" placeholder="{{ $data -> username }}"
+          <input type="hidden" name="users_id" id="users" placeholder="{{ $data->username }}"
             value=" {{ Auth::user()->id  }}" readonly>
           @endforeach
         </div>
@@ -109,7 +104,7 @@
         <div class="col-sm-12 ">
           @foreach ($kelurahan as $data)
 
-          <input type="hidden" name="kelurahan_id" id="kelurahans" placeholder="{{ $data -> name }}"
+          <input type="hidden" name="kelurahan_id" id="kelurahans" placeholder="{{ $data->name }}"
             value=" {{ Auth::user()->kelurahan->id  }}" readonly>
           @endforeach
         </div>
