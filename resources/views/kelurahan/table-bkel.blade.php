@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link collapsed" href="table-bkat.html">
+                        <a class="nav-link collapsed" href="table-bkel.html">
                             <i class="bi bi-circle"></i><span>Kategori</span>
                         </a>
                     </li>

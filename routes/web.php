@@ -60,5 +60,10 @@ Route::prefix('/kelurahan')->group(function () {
 Route::prefix('/bappeda')->group(function () {
 
     Route::get('/dashboard-b', [BappedaController::class, 'index'])->middleware('auth');
-    Route::get('/table-bkat', [BappedaController::class, 'show'])->middleware('auth');
+    Route::get('/table-bkel', [BappedaController::class, 'showBkel'])->middleware('auth');
+    Route::get('/list-akun', [BappedaController::class, 'showAkun'])->middleware('auth');
+    Route::get('/add-akun', [BappedaController::class, 'addAkun'])->middleware('auth');
+    Route::post('/list-akun', [BappedaController::class, 'storeAkun'])->middleware('auth');
+    Route::get('/table-bkat', [BappedaController::class, 'showBkat'])->middleware('auth');
+    Route::get('/export-excel', [BappedaController::class, 'exportExcel'])->name('Bappeda-export.excel');
 });

@@ -33,6 +33,7 @@ class KelurahanController extends Controller
     public function store(Request $request)
     {
 
+
         $dataBappeda = dataBappeda::create($request->all());
 
         formAspirasi::where('id', $request->form_aspirasi_id)->update(['visible' => 0]);
@@ -45,9 +46,16 @@ class KelurahanController extends Controller
 
     public function show(Request $request)
     {
+        $search = $request->search;
+        if ($search == null) {
+            redirect('/kelurahan/riwayat-k');
+        }
 
         // get data from tabel data_bappeda
-        $dataBappeda = dataBappeda::where('kelurahan_id', Auth::user()->kelurahan->id)->paginate(20);
+        $dataBappeda = dataBappeda::where('kelurahan_id', Auth::user()->kelurahan->id)
+            ->where('permasalahan', 'like', "%" . $search . "%")
+
+            ->paginate(20);
         return view('kelurahan.riwayat-k', ['dataBappeda' => $dataBappeda]);
     }
 

@@ -160,7 +160,7 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a class="nav-link collapsed" href="table-bkel.html">
+                    <a class="nav-link collapsed" href="{{URL::to('bappeda/table-bkel')}}">
                         <i class="bi bi-circle"></i><span>Kelurahan</span>
                     </a>
                 </li>
@@ -171,6 +171,12 @@
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{URL::to('bappeda/list-akun')}}">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>List Akun</span>
+            </a>
+        </li><!-- End Add Profile Page Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{URL::to('/profile')}}">

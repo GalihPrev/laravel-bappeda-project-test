@@ -3,133 +3,72 @@
 
 @section('content')
 
-</head>
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+</div><!-- End Page Title -->
 
-<body>
+<section class="section dashboard">
+    <div class="row">
 
-
-    <main id="main" class="main">
-        <br>
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-        </div><!-- End Page Title -->
-
-        <section class="section">
-            <div class="row">
-
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Jumlah Masukan</h5>
-
-                            <!-- Pie Chart -->
-                            <canvas id="pieChart" style="max-height: 400px;"></canvas>
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new Chart(document.querySelector('#pieChart'), {
-                                        type: 'pie',
-                                        data: {
-                                        labels: [
-                                            'Belum mengumpulkan',
-                                            'Sudah mengumpulkan'
-                                        ],
-                                        datasets: [{
-                                            label: 'My First Dataset',
-                                            data: [70, 30],
-                                            backgroundColor: [
-                                            'rgb(255, 99, 132)',
-                                            'rgb(54, 162, 235)'
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                        }
-                                    });
-                                    });
-                            </script>
-                            <!-- End Pie CHart -->
-
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">Jumlah Data Usulan</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-clipboard-data"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{ $countDataUsulan }}</h6>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div><!-- End Card 1 -->
 
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Jumlah Kelurahan</h5>
-
-                            <!-- Pie Chart -->
-                            <canvas id="pieChart1" style="max-height: 400px;"></canvas>
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new Chart(document.querySelector('#pieChart1'), {
-                                        type: 'pie',
-                                        data: {
-                                        labels: [
-                                            'Belum mengumpulkan',
-                                            'Sudah mengumpulkan'
-                                        ],
-                                        datasets: [{
-                                            label: 'My First Dataset',
-                                            data: [70, 30],
-                                            backgroundColor: [
-                                            'rgb(255, 99, 132)',
-                                            'rgb(54, 162, 235)'
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                        }
-                                    });
-                                    });
-                            </script>
-                            <!-- End Pie CHart -->
-
+        <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title">Jumlah Kelurahan</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-house-door"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{ $countDataKelurahan }} <span>/ 57</span></h6>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div><!-- End Card 2-->
 
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Jumlah Kecamatan</h5>
+        <div class="col-xxl-4 col-xl-12">
 
-                            <!-- Pie Chart -->
-                            <canvas id="pieChart2" style="max-height: 400px;"></canvas>
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new Chart(document.querySelector('#pieChart2'), {
-                                        type: 'pie',
-                                        data: {
-                                        labels: [
-                                            'Belum mengumpulkan',
-                                            'Sudah mengumpulkan'
-                                        ],
-                                        datasets: [{
-                                            label: 'My First Dataset',
-                                            data: [70, 30],
-                                            backgroundColor: [
-                                            'rgb(255, 99, 132)',
-                                            'rgb(54, 162, 235)'
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                        }
-                                    });
-                                    });
-                            </script>
-                            <!-- End Pie CHart -->
-
+            <div class="card info-card customers-card">
+                <div class="card-body">
+                    <h5 class="card-title">Jumlah Kecamatan</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>145 <span>/ 200</span></h6>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
-        </section>
+        </div><!-- End Card 3-->
 
-        <div class="d-grid gap-2 mt-3">
-            <button class="btn btn-primary" type="button">View More</button>
-        </div><!-- End View Button -->
+    </div>
 
-    </main><!-- End #main -->
+</section>
 
-    @endsection
+<div class="d-grid gap-2 mt-3">
+    <a class="btn btn-primary" type="button" href={{URL::to('bappeda/table-bkel')}}>View More</a>
+</div><!-- End View Button -->
+
+</main><!-- End #main -->
+
+@endsection

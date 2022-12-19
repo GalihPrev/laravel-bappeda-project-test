@@ -25,9 +25,9 @@ class dataBappeda extends Model
 
 
 
-    public function keluarahan()
+    public function kelurahan()
     {
-        return $this->hasMany(kelurahan::class, 'kelurahan_id', 'id');
+        return $this->belongsTo(kelurahan::class, 'kelurahan_id', 'id');
     }
 
     public function opds()

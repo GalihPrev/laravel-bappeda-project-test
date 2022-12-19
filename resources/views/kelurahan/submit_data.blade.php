@@ -45,21 +45,21 @@
       {{-- get Form Kelurahan ID --}}
       <div class="row mb-3">
         <div class="col-sm-12 ">
-          <input type="text" name="users_id" id="users_id" placeholder="{{ $formAspirasi->users_id  }}"
+          <input type="hidden" name="users_id" id="users_id" placeholder="{{ $formAspirasi->users_id  }}"
             value=" {{ $formAspirasi->users_id  }}" readonly>
         </div>
 
         {{-- get Form User ID --}}
         <div class="row mb-3">
           <div class="col-sm-12 ">
-            <input type="text" name="kelurahan_id" id="kelurahan_id" placeholder="{{ $formAspirasi->kelurahan_id  }}"
+            <input type="hidden" name="kelurahan_id" id="kelurahan_id" placeholder="{{ $formAspirasi->kelurahan_id  }}"
               value="{{ $formAspirasi->kelurahan_id  }}" readonly>
           </div>
 
           {{-- get Form Aspirasi ID --}}
           <div class="row mb-3">
             <div class="col-sm-12 ">
-              <input type="text" name="form_aspirasi_id" id="form_aspirasi_id	" placeholder="{{ $formAspirasi->id }}"
+              <input type="hidden" name="form_aspirasi_id" id="form_aspirasi_id	" placeholder="{{ $formAspirasi->id }}"
                 value=" {{ $formAspirasi->id  }}" readonly>
             </div>
           </div>

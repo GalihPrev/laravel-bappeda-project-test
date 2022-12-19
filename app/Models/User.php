@@ -18,11 +18,15 @@ class User extends Authenticatable
     }
     public function kelurahan()
     {
-        return $this->belongsTo(kelurahan::class, 'kelurahan_id','id');
+        return $this->belongsTo(kelurahan::class, 'kelurahan_id', 'id');
     }
     public function data_bappeda()
     {
         return $this->belongsTo(data_bappeda::class, 'user_id', 'id');
+    }
+    public function role()
+    {
+        return $this->belongsTo(role::class, 'role_id', 'id');
     }
 
     /**
@@ -36,22 +40,19 @@ class User extends Authenticatable
         'role_id',
         'kelurahan_id',
     ];
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

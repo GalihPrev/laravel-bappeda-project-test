@@ -3,7 +3,7 @@
 
 @section('content')
 
-{{-- {{ dd($dataBappeda); }} --}}
+
 <div class="card">
     <div class="card-body">
         <div class="row justify-content-end">
@@ -13,8 +13,8 @@
                 <div class="row">
                     <div class="col-md-3 offset-md-3">
                         <div class="search-bar">
-                            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                            <form class="search-form d-flex align-items-center" method="GET" action="">
+                                <input type="text" name="search" placeholder="Search" title="Enter search keyword">
                                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                             </form>
                         </div>
@@ -45,7 +45,7 @@
 
                 @endphp
                 @foreach ($dataBappeda as $data)
-                {{ $data }}
+                {{-- {{ $data }} --}}
 
                 <tr>
                     <th scope="row">{{$no++ }}</th>

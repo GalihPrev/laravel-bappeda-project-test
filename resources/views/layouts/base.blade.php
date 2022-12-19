@@ -10,8 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png ') }}" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{ asset('build/assets/img/favicon.png ') }}" rel="icon">
+    <link href="{{ asset('build/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -28,6 +28,7 @@
     <link href="{{ asset('build/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('build/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <!-- Template Main CSS File -->
     <link href="{{asset('build/assets/css/style.css') }}" rel="stylesheet">
