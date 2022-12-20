@@ -39,7 +39,7 @@
                                 <div class="row mb-3">
                                     <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Password</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="password" type="password" class="form-control" id="newPassword">
+                                        <input name="password" type="password" class="form-control" id="password">
                                     </div>
                                 </div>
                                 {{-- drop down get value from table kelurahan by kelurhan_id --}}

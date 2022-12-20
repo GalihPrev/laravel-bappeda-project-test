@@ -16,7 +16,16 @@ class KelurahanExport implements FromCollection, WithHeadings
     public function collection()
     {
 
-        return dataBappeda::select('permasalahan', 'penyebab', 'lokasi', 'usulan', 'keterangan', 'created_at', 'updated_at')
+        return dataBappeda::select(
+            'created_at as Dubuat',
+            'updated_at as Diubah',
+            'permasalahan as Pemasalahan',
+            'penyebab as Penyebab',
+            'lokasi as Lokasi',
+            'usulan as Usulan',
+            'keterangan as Keterangan',
+
+        )
             ->where('kelurahan_id', Auth::user()
                 ->kelurahan->id)->get();
         // paginate()->all()
@@ -24,13 +33,14 @@ class KelurahanExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'Permasalahan',
+            'Dibuat',
+            'Diubah',
+            'Pemasalahan',
             'Penyebab',
             'Lokasi',
-            'usulan',
-            'keterangan',
-            'created_at',
-            'updated_at'
+            'Usulan',
+            'Keterangan',
+
         ];
     }
 }

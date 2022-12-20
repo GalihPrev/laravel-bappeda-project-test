@@ -3,7 +3,7 @@
 
 @section('content')
 
-
+{{-- {{ dd($user) }} --}}
 
 <div class="col-xl-8">
     <div class="card">
@@ -15,18 +15,6 @@
 
                     <!-- Profile Edit Form -->
                     <form>
-                        <div class="row mb-3">
-                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                            <div class="col-md-8 col-lg-9">
-                                <img src="assets/img/unnamed.jpg" alt="Profile">
-                                <div class="pt-2">
-                                    <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
-                                            class="bi bi-upload"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                                            class="bi bi-trash"></i></a>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
                             <label for="nama" class="col-md-4 col-lg-3 col-form-label">Nama</label>
@@ -46,15 +34,16 @@
 
                         <h5 class="card-title">Ubah Password</h5>
 
+                        {{-- Display password decrypt md5 to text --}}
                         <div class="row mb-3">
                             <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
                                 Password</label>
                             <div class="col-md-8 col-lg-9">
                                 <input name="password" type="password" class="form-control" id="currentPassword"
-                                    value="">
+                                value=" {{  Auth::user()->password  }}">
                             </div>
                         </div>
-
+                
                         <div class="row mb-3">
                             <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                             <div class="col-md-8 col-lg-9">

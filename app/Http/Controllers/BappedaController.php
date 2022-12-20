@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Exports\BappedaExport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BappedaController extends Controller
@@ -55,10 +56,86 @@ class BappedaController extends Controller
         return view('bappeda.table-bkat');
     }
 
-    public function edit($id)
+    public function editAkun(Request $request, $id)
     {
-        //
+
+        $user = User::find($id);
+        $kelurahan = kelurahan::select('id', 'name')->get();
+        // dd($user);
+        return view('bappeda.edit-akun', ['user' => $user, 'kelurahan' => $kelurahan]);
     }
+    // public function update(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'last_name' => 'nullable|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
+    //         'current_password' => 'nullable|required_with:new_password',
+    //         'new_password' => 'nullable|min:8|max:12|required_with:current_password',
+    //         'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password'
+    //     ]);
+
+
+    //     $user = User::findOrFail(Auth::user()->id);
+    //     $user->name = $request->input('name');
+    //     $user->last_name = $request->input('last_name');
+    //     $user->email = $request->input('email');
+
+    //     if (!is_null($request->input('current_password'))) {
+    //         if (Hash::check($request->input('current_password'), $user->password)) {
+    //             $user->password = $request->input('new_password');
+    //         } else {
+    //             return redirect()->back()->withInput();
+    //         }
+    //     }
+
+    //     $user->save();
+
+    //     return redirect()->route('profile')->withSuccess('Profile updated successfully.');
+    // }
+
+    public function updateAkun(Request $request, $id)
+    {
+        // dd($request->all());
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'password' => 'nullable|string|max:255',
+            'role_id' => 'required|string|max:255',
+            'kelurahan_id' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->input('username');
+        $user->role_id = $request->input('role_id');
+        $user->kelurahan_id = $request->input('kelurahan_id');
+
+        // if (!is_null($request->input('current_password'))) {
+        //     if (Hash::check($request->input('current_password'), $user->password)) {
+        //         $user->password = $request->input('new_password');
+        //     } else {
+        //         return redirect()->back()->withInput();
+        //     }
+        // }
+
+        $user->save();
+        return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diedit');
+
+        // if ($user) {
+        //     return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diubah');
+        // } else {
+        //     return redirect('/bappeda/list-akun')->with('error', 'Data Gagal Diubah');
+        // }
+    }
+    // dd($request->all());
+    // $user = User::find($id);
+    // $user->update($request->all());
+    // if ($user) {
+    //     return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diubah');
+    // } else {
+    //     return redirect('/bappeda/list-akun')->with('error', 'Data Gagal Diubah');
+    // }
+
+
 
     public function update(Request $request, $id)
     {

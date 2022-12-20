@@ -54,7 +54,8 @@ class KelurahanController extends Controller
         // get data from tabel data_bappeda
         $dataBappeda = dataBappeda::where('kelurahan_id', Auth::user()->kelurahan->id)
             ->where('permasalahan', 'like', "%" . $search . "%")
-
+            ->Where('penyebab', 'like', "%" . $search . "%")
+            ->Where('lokasi', 'like', "%" . $search . "%")
             ->paginate(20);
         return view('kelurahan.riwayat-k', ['dataBappeda' => $dataBappeda]);
     }

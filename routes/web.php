@@ -65,5 +65,8 @@ Route::prefix('/bappeda')->group(function () {
     Route::get('/add-akun', [BappedaController::class, 'addAkun'])->middleware('auth');
     Route::post('/list-akun', [BappedaController::class, 'storeAkun'])->middleware('auth');
     Route::get('/table-bkat', [BappedaController::class, 'showBkat'])->middleware('auth');
+    Route::get('/table-bkel/{id}', [BappedaController::class, 'editAkun'])->middleware('auth')->name('edit.akun');
+    Route::put('/table-bkel/{id}', [BappedaController::class, 'updateAkun'])->middleware('auth')->name('update.akun');
+
     Route::get('/export-excel', [BappedaController::class, 'exportExcel'])->name('Bappeda-export.excel');
 });
