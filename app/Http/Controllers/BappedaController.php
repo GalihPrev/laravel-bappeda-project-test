@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class BappedaController extends Controller
 {
@@ -39,16 +40,34 @@ class BappedaController extends Controller
     }
 
 
-    public function showBkel()
+    public function showBkel(Request $request)
     {
+        if ($request->filter_id) {
+            // dd(true);
+            // dd($request->all());
+            $dataBappeda = DB::table('data_bappedas')
+                ->join('kelurahans', 'data_bappedas.kelurahan_id', '=', 'kelurahans.id')
+                ->where('kelurahans.id', $request->filter_id)
+                ->orderBy('kelurahans.name', 'ASC')
+                ->select('data_bappedas.*', 'kelurahans.name as nama_kelurahan')
+                ->get();
 
-        $dataBappeda = DB::table('data_bappedas')
-            ->join('kelurahans', 'data_bappedas.kelurahan_id', '=', 'kelurahans.id')
-            ->orderBy('kelurahans.name', 'ASC')
-            ->select('data_bappedas.*', 'kelurahans.name as nama_kelurahan')
-            ->get();
+            $dataKelurahan = kelurahan::select('id', 'name')->get();
+            return view('bappeda.table-bkel', ['dataBappeda' => $dataBappeda, 'dataKelurahan' => $dataKelurahan]);
+        } else {
+            $dataKelurahan = kelurahan::select('id', 'name')->get();
+            $dataBappeda = DB::table('data_bappedas')
+                ->join('kelurahans', 'data_bappedas.kelurahan_id', '=', 'kelurahans.id')
+                ->orderBy('kelurahans.name', 'ASC')
+                ->select('data_bappedas.*', 'kelurahans.name as nama_kelurahan')
+                ->get();
+            // dd(false);
+            return view('bappeda.table-bkel', ['dataBappeda' => $dataBappeda, 'dataKelurahan' => $dataKelurahan]);
+        }
+        // dd($request->all());
+        // // dd($dataKelurahan);
 
-        return view('bappeda.table-bkel', ['dataBappeda' => $dataBappeda]);
+
     }
 
     public function showBkat()
@@ -64,43 +83,15 @@ class BappedaController extends Controller
         // dd($user);
         return view('bappeda.edit-akun', ['user' => $user, 'kelurahan' => $kelurahan]);
     }
-    // public function update(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'last_name' => 'nullable|string|max:255',
-    //         'email' => 'required|string|email|max:255|unique:users,email,' . Auth::user()->id,
-    //         'current_password' => 'nullable|required_with:new_password',
-    //         'new_password' => 'nullable|min:8|max:12|required_with:current_password',
-    //         'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password'
-    //     ]);
-
-
-    //     $user = User::findOrFail(Auth::user()->id);
-    //     $user->name = $request->input('name');
-    //     $user->last_name = $request->input('last_name');
-    //     $user->email = $request->input('email');
-
-    //     if (!is_null($request->input('current_password'))) {
-    //         if (Hash::check($request->input('current_password'), $user->password)) {
-    //             $user->password = $request->input('new_password');
-    //         } else {
-    //             return redirect()->back()->withInput();
-    //         }
-    //     }
-
-    //     $user->save();
-
-    //     return redirect()->route('profile')->withSuccess('Profile updated successfully.');
-    // }
 
     public function updateAkun(Request $request, $id)
     {
         // dd($request->all());
         $request->validate([
             'username' => 'required|string|max:255',
-            'password' => 'nullable|string|max:255',
-            'role_id' => 'required|string|max:255',
+            'current_password' => 'nullable|required_with:new_password',
+            'new_password' => 'nullable|min:8|max:20|required_with:current_password',
+            'role_id' => 'required',
             'kelurahan_id' => 'required',
         ]);
 
@@ -108,34 +99,20 @@ class BappedaController extends Controller
         $user->username = $request->input('username');
         $user->role_id = $request->input('role_id');
         $user->kelurahan_id = $request->input('kelurahan_id');
+        // dd($user);
 
-        // if (!is_null($request->input('current_password'))) {
-        //     if (Hash::check($request->input('current_password'), $user->password)) {
-        //         $user->password = $request->input('new_password');
-        //     } else {
-        //         return redirect()->back()->withInput();
-        //     }
-        // }
+        if (!is_null($request->input('current_password'))) {
+            if (Hash::check($request->input('current_password'), $user->password)) {
+                $user->password = $request->input('new_password');
+            } else {
+                // dd('password salah');
+                return redirect()->back()->withInput()->with('warning', 'Password Salah');
+            }
+        }
 
         $user->save();
         return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diedit');
-
-        // if ($user) {
-        //     return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diubah');
-        // } else {
-        //     return redirect('/bappeda/list-akun')->with('error', 'Data Gagal Diubah');
-        // }
     }
-    // dd($request->all());
-    // $user = User::find($id);
-    // $user->update($request->all());
-    // if ($user) {
-    //     return redirect('/bappeda/list-akun')->with('success', 'Data Berhasil Diubah');
-    // } else {
-    //     return redirect('/bappeda/list-akun')->with('error', 'Data Gagal Diubah');
-    // }
-
-
 
     public function update(Request $request, $id)
     {
@@ -146,6 +123,7 @@ class BappedaController extends Controller
     {
         //
     }
+
     public function showAkun()
     {
         // join table roles,kelurahans,users  to order by role name 
@@ -155,12 +133,6 @@ class BappedaController extends Controller
             ->orderBy('roles.name', 'DESC')
             ->select('users.*', 'roles.name as nama_role', 'kelurahans.name as nama_kelurahan')
             ->get();
-
-        // $user = DB::table('users')
-        //     ->join('roles', 'users.role_id', '=', 'roles.id')
-        //     ->orderBy('roles.name', 'DESC')
-        //     ->select('users.*', 'roles.name as nama_role')
-        //     ->get();
 
 
         return view('bappeda.list-akun', ['user' => $user]);
@@ -173,7 +145,7 @@ class BappedaController extends Controller
     }
     public function storeAkun(Request $request)
     {
-        // dd('test');
+
 
         $User = User::create($request->all());
 
@@ -186,8 +158,23 @@ class BappedaController extends Controller
 
     public function exportExcel()
     {
-        // export file from fromaspirasi with paginate 5
         // $formAspirasi = formAspirasi::where('kelurahan_id', Auth::user()->kelurahan->id)->paginate(5);
         return Excel::download(new BappedaExport, 'kelurahan.xlsx');
+    }
+
+
+    public function filter(Request $request)
+    {
+
+        // dd($request->all());
+        $dataBappeda = DB::table('data_bappedas')
+            ->join('kelurahans', 'data_bappedas.kelurahan_id', '=', 'kelurahans.id')
+            ->where('kelurahans.id', $request->kelurahan_id)
+            ->orderBy('kelurahans.name', 'ASC')
+            ->select('data_bappedas.*', 'kelurahans.name as nama_kelurahan')
+            ->get();
+
+        $dataKelurahan = kelurahan::select('id', 'name')->get();
+        return view('bappeda.table-bkel', ['dataBappeda' => $dataBappeda, 'dataKelurahan' => $dataKelurahan]);
     }
 }

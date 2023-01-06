@@ -2,6 +2,7 @@
 
 
 @section('content')
+{{-- {{ dd($dataKelurahan) }} --}}
 
 <section class="section">
     <div class="col-lg-12">
@@ -10,13 +11,23 @@
                 <div class="row">
 
                     <div class="col-md-5">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Kelurahan</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+
+
+                        <form action="{{ route('table-bkel') }}" method="GET">
+                            @csrf
+                            <select class="form-select" name="filter_id" aria-label="Default select example">
+                                <option selected>Kelurahan</option>
+                                @foreach ($dataKelurahan as $data)
+                                <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                @endforeach
+                            </select>
+
                     </div>
+                    <div class="col ms-auto">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+
+                    </form>
 
                     <div class="col-md-4 ms-auto">
                         <div class="search-bar">

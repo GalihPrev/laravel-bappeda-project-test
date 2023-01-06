@@ -11,6 +11,7 @@ use App\Models\dataKategorie;
 use App\Exports\KelurahanExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KelurahanController extends Controller
@@ -78,6 +79,41 @@ class KelurahanController extends Controller
         $formAspirasi = formAspirasi::findOrFail($id);
         $formAspirasi->delete();
         return redirect('/kelurahan/dashboard-k')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function profile()
+    {
+        $user = User::find(Auth::user()->id);
+        return view('/kelurahan/profile-k', ['user' => $user]);
+    }
+    public function updateAkun(Request $request, $id)
+    {
+
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'current_password' => 'nullable|required_with:new_password',
+            'new_password' => 'nullable|min:8|max:20|required_with:current_password',
+            'role_id' => 'required',
+            'kelurahan_id' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->input('username');
+        $user->role_id = $request->input('role_id');
+        $user->kelurahan_id = $request->input('kelurahan_id');
+
+
+        if (!is_null($request->input('current_password'))) {
+            if (Hash::check($request->input('current_password'), $user->password)) {
+                $user->password = $request->input('new_password');
+            } else {
+
+                return redirect()->back()->withInput()->with('warning', 'Password Salah');
+            }
+        }
+
+        $user->save();
+        return redirect('/kelurahan/dashboard-k')->with('success', 'Data Berhasil Diedit');
     }
 
 

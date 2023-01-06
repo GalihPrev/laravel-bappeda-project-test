@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                             @foreach ($formAspirasi as $data)
-                            {{ $data }}
+                            {{-- {{ $data }} --}}
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $data -> permasalahan }}</td>

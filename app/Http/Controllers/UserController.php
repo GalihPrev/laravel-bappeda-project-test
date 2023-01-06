@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\formAspirasi;
-use App\Models\kelurahan;
 use App\Models\role;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\kelurahan;
 use Termwind\Components\Dd;
+use App\Models\formAspirasi;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
         if ($formAspirasi) {
             return redirect('/masyarakat/riwayat-m')->with('success', 'Data Berhasil Ditambahkan');
         } else {
-            return redirect('/masyarakat/riwayat-m')->with('error', 'Data Gagal Ditambahkan');
+            return redirect('/masyarakat/riwayat-m')->with('warning', 'Data Gagal Ditambahkan');
         }
     }
 
@@ -81,7 +82,7 @@ class UserController extends Controller
         if ($formAspirasi) {
             return redirect('/masyarakat/riwayat-m')->with('success', 'Data Berhasil Diubah');
         } else {
-            return redirect('/masyarakat/riwayat-m')->with('error', 'Data Gagal Diubah');
+            return redirect('/masyarakat/riwayat-m')->with('warning', 'Data Gagal Diubah');
         }
     }
 
@@ -89,5 +90,40 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function profile()
+    {
+        $user = User::find(Auth::user()->id);
+        return view('/masyarakat/profile-m', ['user' => $user]);
+    }
+    public function updateAkun(Request $request, $id)
+    {
+
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'current_password' => 'nullable|required_with:new_password',
+            'new_password' => 'nullable|min:8|max:20|required_with:current_password',
+            'role_id' => 'required',
+            'kelurahan_id' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->input('username');
+        $user->role_id = $request->input('role_id');
+        $user->kelurahan_id = $request->input('kelurahan_id');
+
+
+        if (!is_null($request->input('current_password'))) {
+            if (Hash::check($request->input('current_password'), $user->password)) {
+                $user->password = $request->input('new_password');
+            } else {
+
+                return redirect()->back()->withInput()->with('warning', 'Password Salah');
+            }
+        }
+
+        $user->save();
+        return redirect('/masyarakat/riwayat-m')->with('success', 'Data Berhasil Diedit');
     }
 }

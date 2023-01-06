@@ -33,14 +33,14 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{URL::to('masyarakat/riwayat-m')}}">
                 <i class="bi bi-clock-history"></i>
-                <span>Riwayat</span>
+                <span>Form Aspirasi</span>
             </a>
         </li><!-- End Riwayat Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href={{URL::to('/profile')}}>
+            <a class="nav-link collapsed" href={{URL::to('masyarakat/profile-m')}}>
                 <i class="bi bi-person"></i>
-                <span>Akun</span>
+                <span>Ganti Password</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
@@ -100,7 +100,7 @@
         </li><!-- End Riwayat Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{URL::to('/profile')}}">
+            <a class="nav-link collapsed" href="{{URL::to('kelurahan/profile-k')}}">
                 <i class="bi bi-person"></i>
                 <span>Akun</span>
             </a>

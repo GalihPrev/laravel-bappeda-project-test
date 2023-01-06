@@ -6,6 +6,15 @@
 
 {{-- {{ dd($user ) }} --}}
 <section class="section profile">
+    @if ($errors->any())
+    <div class="alert alert-danger border-left-danger" role="alert">
+        <ul class="pl-4 my-2">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="row">
 
         <div class="col-xl-6 mx-auto">
@@ -22,7 +31,6 @@
                                 @method('PUT')
                                 @csrf
 
-
                                 <br>
 
                                 <div class="row mb-3">
@@ -32,13 +40,19 @@
                                             value="{{ $user->username }}">
                                     </div>
                                 </div>
-                                {{-- Edit password with md5 --}}
-
 
                                 <div class="row mb-3">
-                                    <label for="password" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                                    <label for="password" class="col-md-4 col-lg-3 col-form-label">Old Password </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="password" type="text" class="form-control" id="password">
+                                        <input name="current_password" type="text" class="form-control"
+                                            id="current_password">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password </label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="new_password" type="text" class="form-control" id="new_password">
                                     </div>
                                 </div>
 
@@ -53,13 +67,13 @@
 
                                 <div class="row mb-3">
                                     <div class="col-sm-12 ">
-                                        <input type="text" name="kelurahan_id" id="kelurahan_id"
+                                        <input type="hidden" name="kelurahan_id" id="kelurahan_id"
                                             value="{{ $user->kelurahan_id  }}" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-12 ">
-                                        <input type="text" name="role_id" id="role_id" value="{{ $user->role_id  }}"
+                                        <input type="hidden" name="role_id" id="role_id" value="{{ $user->role_id  }}"
                                             readonly>
                                     </div>
                                 </div>
