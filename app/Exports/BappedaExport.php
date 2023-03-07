@@ -15,6 +15,7 @@ class BappedaExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
+        // print with filter by kelurahan name 
         // join 2 table dataBappeda dan kelurahan
         return DB::table('data_bappedas')
             ->join('kelurahans', 'data_bappedas.kelurahan_id', '=', 'kelurahans.id')

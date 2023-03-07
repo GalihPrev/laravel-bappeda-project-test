@@ -59,18 +59,22 @@ Route::prefix('/kelurahan')->group(function () {
     Route::get('/export-excel', [KelurahanController::class, 'exportExcel'])->name('export.excel');
     Route::get('/profile-k', [KelurahanController::class, 'profile'])->middleware('auth');
     Route::put('/edit-akun/{id}', [KelurahanController::class, 'updateAkun'])->middleware('auth')->name('update.akun-k');
-});
 
-Route::prefix('/bappeda')->group(function () {
 
-    Route::get('/dashboard-b', [BappedaController::class, 'index'])->middleware('auth');
-    Route::get('/table-bkel', [BappedaController::class, 'showBkel'])->name('table-bkel')->middleware('auth');
-    Route::get('/list-akun', [BappedaController::class, 'showAkun'])->middleware('auth');
-    Route::get('/add-akun', [BappedaController::class, 'addAkun'])->middleware('auth');
-    Route::post('/list-akun', [BappedaController::class, 'storeAkun'])->middleware('auth');
-    Route::get('/table-bkat', [BappedaController::class, 'showBkat'])->middleware('auth');
-    Route::get('/table-bkel/{id}', [BappedaController::class, 'editAkun'])->middleware('auth')->name('edit.akun');
-    Route::put('/table-bkel/{id}', [BappedaController::class, 'updateAkun'])->middleware('auth')->name('update.akun');
-    Route::get('/export-excel', [BappedaController::class, 'exportExcel'])->name('Bappeda-export.excel');
-    Route::post('/filter', [BappedaController::class, 'filter'])->name('filter');
+
+    Route::prefix('/bappeda')->group(function () {
+
+        Route::get('/dashboard-b', [BappedaController::class, 'index'])->middleware('auth');
+        Route::get('/table-bkel', [BappedaController::class, 'showBkel'])->name('table-bkel')->middleware('auth');
+        Route::get('/list-akun', [BappedaController::class, 'showAkun'])->middleware('auth');
+        Route::get('/add-akun', [BappedaController::class, 'addAkun'])->middleware('auth');
+        Route::post('/list-akun', [BappedaController::class, 'storeAkun'])->middleware('auth');
+        Route::get('/table-bkat', [BappedaController::class, 'showBkat'])->middleware('auth');
+        Route::get('/table-bkel/{id}', [BappedaController::class, 'editAkun'])->middleware('auth')->name('edit.akun');
+        Route::put('/table-bkel/{id}', [BappedaController::class, 'updateAkun'])->middleware('auth')->name('update.akun');
+        Route::get('/export-excel', [BappedaController::class, 'exportExcel'])->name('Bappeda-export.excel');
+        Route::post('/filter', [BappedaController::class, 'filter'])->name('filter');
+        
+        
+    });
 });
